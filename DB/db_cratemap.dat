@@ -1,0 +1,5 @@
+TSROC 1
+
+==== Crate 1 type vme
+# slot   model   bank   configuration string (optional)
+  3     250    250 
