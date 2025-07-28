@@ -6,7 +6,7 @@
 #include "THaApparatus.h"
 
 
-void replay(){
+void replay(int run_number=0, int nevents=-1){
 
   gSystem->Load("libMollerPol");
 
@@ -29,8 +29,8 @@ void replay(){
   // Define the run(s) that we want to analyze.
   // We just set up one, but this could be many.
 //  THaRun* run = new THaRun( "prod12_4100V_TrigRate25_4.dat" );
-  THaRun* run = new THaRun( "data/mollerpol_test_199.evio.0" );
-  run->SetLastEvent(-1);
+  THaRun* run = new THaRun( Form("data/mollerpol_test_%d.evio.0",run_number) );
+  run->SetLastEvent(nevents);
 
   run->SetDataRequired(0);
   run->SetDate(TDatime());
@@ -40,9 +40,9 @@ void replay(){
   
   // Define the analysis parameters
   analyzer->SetEvent( event );
-  analyzer->SetOutFile( "Rootfiles/mollerpol_test_199.root" );
+  analyzer->SetOutFile( Form("Rootfiles/mollerpol_test_%d.root", run_number) );
   // File to record cuts accounting information
-  analyzer->SetSummaryFile("summary_199.log"); // optional
+  analyzer->SetSummaryFile( Form("summary_%d.log", run_number) ); // optional
   
   //analyzer->SetCompressionLevel(0); // turn off compression
   analyzer->Process(run);     // start the actual analysis

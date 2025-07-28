@@ -21,10 +21,10 @@
 # The "first logical channel" is the one assigned to the first hardware channel.
 
 M.cal.detmap = 
-    1 3 0 7 0
+    1 3 0 15 0
 
 # total number of PMTs
-M.cal.nelem = 8
+M.cal.nelem = 16
 
 # The following keys are optional. If missing, defaults will apply:
 # pedestals = 0, gains = 1

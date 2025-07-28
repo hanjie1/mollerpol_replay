@@ -2,3 +2,5 @@
 *.swp
 data
 Rootfiles
+*.txt
+fadcdebug.dat
