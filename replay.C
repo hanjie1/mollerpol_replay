@@ -21,6 +21,12 @@ void replay(int run_number=0, int nevents=-1){
   
   gHaApps->Add(mol);
 
+  // Add event handler for scaler events
+  MollerPolScalerEvtHandler* scaler = new MollerPolScalerEvtHandler("M", "scaler event type 1");
+  scaler->AddEvtType(1);
+  gHaEvtHandlers->Add(scaler);
+  scaler->SetDebugFile("DebugScaler.txt");
+  
   // A simple event class to be output to the resulting tree.
   // Creating your own descendant of THaEvent is one way of
   // defining and controlling the output.
@@ -29,7 +35,7 @@ void replay(int run_number=0, int nevents=-1){
   // Define the run(s) that we want to analyze.
   // We just set up one, but this could be many.
 //  THaRun* run = new THaRun( "prod12_4100V_TrigRate25_4.dat" );
-  THaRun* run = new THaRun( Form("data/mollerpol_test_%d.evio.0",run_number) );
+  THaRun* run = new THaRun( Form("raw/fadcV2_%d.evio.0",run_number) );
   run->SetLastEvent(nevents);
 
   run->SetDataRequired(0);
@@ -40,7 +46,7 @@ void replay(int run_number=0, int nevents=-1){
   
   // Define the analysis parameters
   analyzer->SetEvent( event );
-  analyzer->SetOutFile( Form("Rootfiles/mollerpol_test_%d.root", run_number) );
+  analyzer->SetOutFile( Form("Rootfiles/fadcV2_moller_analyzer_%d.root", run_number) );
   // File to record cuts accounting information
   analyzer->SetSummaryFile( Form("summary_%d.log", run_number) ); // optional
   
