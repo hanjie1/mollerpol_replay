@@ -34,8 +34,10 @@ void replay(int run_number=0, int nevents=-1){
   
   // Define the run(s) that we want to analyze.
   // We just set up one, but this could be many.
-//  THaRun* run = new THaRun( "prod12_4100V_TrigRate25_4.dat" );
+  // THaRun* run = new THaRun( "prod12_4100V_TrigRate25_4.dat" );
   THaRun* run = new THaRun( Form("raw/fadcV2_%d.evio.0",run_number) );
+  //
+  //old run define
   run->SetLastEvent(nevents);
 
   run->SetDataRequired(0);
@@ -45,7 +47,7 @@ void replay(int run_number=0, int nevents=-1){
   analyzer->SetOdefFile("replay.odef" );
   
   // Define the analysis parameters
-  analyzer->SetEvent( event );
+  analyzer->SetEvent(event);
   analyzer->SetOutFile( Form("Rootfiles/fadcV2_moller_analyzer_%d.root", run_number) );
   // File to record cuts accounting information
   analyzer->SetSummaryFile( Form("summary_%d.log", run_number) ); // optional
