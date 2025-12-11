@@ -22,11 +22,12 @@ void replay(int run_number=0, int nevents=-1){
   gHaApps->Add(mol);
 
   // Add event handler for scaler events
+  
   MollerPolScalerEvtHandler* scaler = new MollerPolScalerEvtHandler("M", "scaler event type 1");
   scaler->AddEvtType(1);
   gHaEvtHandlers->Add(scaler);
   scaler->SetDebugFile("DebugScaler.txt");
-  
+ 
   // A simple event class to be output to the resulting tree.
   // Creating your own descendant of THaEvent is one way of
   // defining and controlling the output.
