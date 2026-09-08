@@ -1,0 +1,536 @@
+#This database is prepared for testlab cosmic setup.
+# MOLLER polarimeter: 3 XY layers(m0-m5) + 2 UV layer(m6-m7)
+#Please remove UV GEM while using only Polarimeter XY GEMs
+
+--------[ 2026-04-26 00:00:00 ]
+
+# ======================================================================
+# Module inventory
+# ======================================================================
+# XY chamber has two virtual modules per physical layer:
+#   layer 0: m0 m1
+#   layer 1: m2 m3
+#   layer 2: m4 m5
+# UV/MOLLER coordinate GEM:
+#   layer 3: m6
+# ======================================================================
+
+mollerPol.polgem.modules = m0 m1 m2 m3 m4 m5 m6 m7
+
+# ----------------------------------------------------------------------
+# Layer indices
+# ----------------------------------------------------------------------
+mollerPol.polgem.m0.layer = 0
+mollerPol.polgem.m1.layer = 0
+
+mollerPol.polgem.m2.layer = 1
+mollerPol.polgem.m3.layer = 1
+
+mollerPol.polgem.m4.layer = 2
+mollerPol.polgem.m5.layer = 2
+
+mollerPol.polgem.m6.layer = 3
+mollerPol.polgem.m7.layer = 4
+
+# ----------------------------------------------------------------------
+# APV mapping
+#   1 = UVA X/Y
+#   3 = MOLLER coordinate UV GEM
+# ----------------------------------------------------------------------
+mollerPol.polgem.m0.apvmap = 1
+mollerPol.polgem.m1.apvmap = 1
+mollerPol.polgem.m2.apvmap = 1
+mollerPol.polgem.m3.apvmap = 1
+mollerPol.polgem.m4.apvmap = 1
+mollerPol.polgem.m5.apvmap = 1
+
+mollerPol.polgem.m6.apvmap = 3
+mollerPol.polgem.m7.apvmap = 3
+
+# ======================================================================
+# Decoding / common-mode / clustering defaults
+# ======================================================================
+
+mollerPol.polgem.pedestalmode = 0
+mollerPol.polgem.commonmode_flag = 2
+mollerPol.polgem.commonmode_online_flag = 0
+mollerPol.polgem.commonmode_nstriplo = 28
+mollerPol.polgem.commonmode_nstriphi = 28
+mollerPol.polgem.commonmode_niter = 3
+mollerPol.polgem.commonmode_minstrips = 40
+mollerPol.polgem.plot_common_mode = 0 #1
+mollerPol.polgem.pedsub_online = 0
+mollerPol.polgem.dump_geometry_info = 1
+
+mollerPol.polgem.do_efficiencies = 1
+mollerPol.polgem.efficiency_bin_width_1D = 0.005
+mollerPol.polgem.efficiency_bin_width_2D = 0.005
+mollerPol.polgem.commonmode_range_nsigma = 5.0
+mollerPol.polgem.m6.commonmode_range_nsigma = 5.0
+
+# Danning method
+mollerPol.polgem.commonmode_danning_nsigma_cut = 3.0
+
+# Histogramming method
+mollerPol.polgem.commonmode_binwidth_nsigma = 2.0
+mollerPol.polgem.commonmode_scanrange_nsigma = 5.0
+mollerPol.polgem.commonmode_stepsize_nsigma = 0.25
+
+mollerPol.polgem.correct_common_mode = 1
+mollerPol.polgem.correct_common_mode_minstrips = 15
+mollerPol.polgem.correct_common_mode_nsigma = 2.0
+
+mollerPol.polgem.use_commonmode_rolling_average = 0
+mollerPol.polgem.commonmode_nevents_lookback = 10
+
+# ======================================================================
+# Module gain factors
+# ======================================================================
+
+mollerPol.polgem.m0.modulegain = 1.0
+mollerPol.polgem.m1.modulegain = 1.0
+mollerPol.polgem.m2.modulegain = 1.0
+mollerPol.polgem.m3.modulegain = 1.0
+mollerPol.polgem.m4.modulegain = 1.0
+mollerPol.polgem.m5.modulegain = 1.0
+mollerPol.polgem.m6.modulegain = 1.0
+mollerPol.polgem.m7.modulegain = 1.0
+
+mollerPol.polgem.m0.ugain = 1.0
+mollerPol.polgem.m1.ugain = 1.0
+mollerPol.polgem.m2.ugain = 1.0
+mollerPol.polgem.m3.ugain = 1.0
+mollerPol.polgem.m4.ugain = 1.0
+mollerPol.polgem.m5.ugain = 1.0
+mollerPol.polgem.m6.ugain = 1.0
+mollerPol.polgem.m7.ugain = 1.0
+
+mollerPol.polgem.m0.vgain = 1.0
+mollerPol.polgem.m1.vgain = 1.0
+mollerPol.polgem.m2.vgain = 1.0
+mollerPol.polgem.m3.vgain = 1.0
+mollerPol.polgem.m4.vgain = 1.0
+mollerPol.polgem.m5.vgain = 1.0
+mollerPol.polgem.m6.vgain = 1.0
+mollerPol.polgem.m7.vgain = 1.0
+
+mollerPol.polgem.plot_event_info = 1
+
+# ======================================================================
+# Global module positions and Euler angles
+# ======================================================================
+# Convention:
+#   +z = downstream / tracking direction
+#   +x = from left logical half to right logical half
+#   +y = upward in chamber plane
+#
+# XY chamber is split into two virtual halves:
+#   m0, m2, m4 = left half
+#   m1, m3, m5 = right half
+#
+# UV layer m6 is one full MOLLER coordinate GEM.
+# ======================================================================
+#---------------Rough start --------------------------------------------
+# --------------------
+# XY layer 0
+# --------------------
+mollerPol.polgem.m0.position = -0.0384   0.0000   1.3400
+mollerPol.polgem.m0.angle    =  0.0      0.0      0.0
+mollerPol.polgem.m1.position =  0.0384   0.0000   1.3400
+mollerPol.polgem.m1.angle    =  0.0      0.0      0.0
+# --------------------
+# XY layer 1
+# --------------------
+mollerPol.polgem.m2.position = -0.0384   0.0000   0.964
+mollerPol.polgem.m2.angle    =  0.0      0.0      0.0
+mollerPol.polgem.m3.position =  0.0384   0.0000   0.964
+mollerPol.polgem.m3.angle    =  0.0      0.0      0.0
+# --------------------
+# XY layer 2
+# --------------------
+mollerPol.polgem.m4.position = -0.0384   0.0000   0.1500
+mollerPol.polgem.m4.angle    =  0.0      0.0      0.0
+mollerPol.polgem.m5.position =  0.0384   0.0000   0.1500
+mollerPol.polgem.m5.angle    =  0.0      0.0      0.0
+#-----2306, F2, F3, F4, F5, F6--------
+mollerPol.polgem.m0.position =   -0.04745324373  -0.005590628791      1.343438958
+mollerPol.polgem.m0.angle =    -0.4324822948     0.2081137411    -0.1960615738
+mollerPol.polgem.m1.position =        0.0293458      -0.00585343          1.34316
+mollerPol.polgem.m1.angle =    -0.4324822948     0.2081137411    -0.1960615738
+mollerPol.polgem.m2.position =   -0.02741812951   0.002606590602     0.9634209117
+mollerPol.polgem.m2.angle =      3.135247973     -8.695665865     0.3925964108
+mollerPol.polgem.m3.position =    0.04849729733   0.003126778839         0.975032
+mollerPol.polgem.m3.angle =      3.135247973     -8.695665865     0.3925964108
+mollerPol.polgem.m4.position =   -0.03060385669  0.0008046827286     0.2198609748
+mollerPol.polgem.m4.angle =    -0.5376108828     -9.339956906      2.684215597
+mollerPol.polgem.m5.position =    0.04509484185   0.004353642404         0.232325
+mollerPol.polgem.m5.angle =    -0.5376108828     -9.339956906      2.684215597
+mollerPol.polgem.m6.position =        0.0276946        0.0145595        0.0128619
+mollerPol.polgem.m6.angle =     -4.350640426     -5.331521253      1.617047326
+mollerPol.polgem.m7.position =   0.007408134265    0.01300482462          0.41183
+mollerPol.polgem.m7.angle =     -6.616803097     -6.049402993      1.599136665
+
+## ======================================================================
+# Active sizes
+# ======================================================================
+# XY virtual modules:
+#   x width = 192 strips * 0.4 mm = 0.0768 m
+#   y height = 640 strips * 0.4 mm = 0.2560 m
+#
+# UV/MOLLER coordinate GEM:
+#   use full active coordinate-GEM size
+# ======================================================================
+
+mollerPol.polgem.m0.size = 0.0768  0.2560  0.001
+mollerPol.polgem.m1.size = 0.0768  0.2560  0.001
+mollerPol.polgem.m2.size = 0.0768  0.2560  0.001
+mollerPol.polgem.m3.size = 0.0768  0.2560  0.001
+mollerPol.polgem.m4.size = 0.0768  0.2560  0.001
+mollerPol.polgem.m5.size = 0.0768  0.2560  0.001
+
+mollerPol.polgem.m6.size = 0.5068  0.4923  0.001
+mollerPol.polgem.m7.size = 0.5068  0.4923  0.001
+
+# ======================================================================
+# Strip counts
+# ======================================================================
+
+mollerPol.polgem.m0.nstripsu = 192
+mollerPol.polgem.m1.nstripsu = 192
+mollerPol.polgem.m2.nstripsu = 192
+mollerPol.polgem.m3.nstripsu = 192
+mollerPol.polgem.m4.nstripsu = 192
+mollerPol.polgem.m5.nstripsu = 192
+
+mollerPol.polgem.m0.nstripsv = 640
+mollerPol.polgem.m1.nstripsv = 640
+mollerPol.polgem.m2.nstripsv = 640
+mollerPol.polgem.m3.nstripsv = 640
+mollerPol.polgem.m4.nstripsv = 640
+mollerPol.polgem.m5.nstripsv = 640
+
+mollerPol.polgem.m6.nstripsu = 605
+mollerPol.polgem.m6.nstripsv = 605
+
+mollerPol.polgem.m7.nstripsu = 605
+mollerPol.polgem.m7.nstripsv = 605
+# ======================================================================
+# X/U strip position reindexing due to shared middle APV
+# ======================================================================
+
+mollerPol.polgem.m0.ustrip_range = 0 191
+mollerPol.polgem.m1.ustrip_range = 64 255
+
+mollerPol.polgem.m2.ustrip_range = 0 191
+mollerPol.polgem.m3.ustrip_range = 64 255
+
+mollerPol.polgem.m4.ustrip_range = 0 191
+mollerPol.polgem.m5.ustrip_range = 64 255
+
+mollerPol.polgem.m0.reindex_u = 1
+mollerPol.polgem.m1.reindex_u = 1
+mollerPol.polgem.m2.reindex_u = 1
+mollerPol.polgem.m3.reindex_u = 1
+mollerPol.polgem.m4.reindex_u = 1
+mollerPol.polgem.m5.reindex_u = 1
+
+# ======================================================================
+# Strip directions in local module coordinates
+# ======================================================================
+# XY:
+#   u = X-like readout
+#   v = Y-like readout
+#
+# UV/MOLLER:
+#   u/v stereo angles from MOLLER coordinate GEM convention
+# ======================================================================
+
+mollerPol.polgem.m0.uangle = 0.0
+mollerPol.polgem.m0.vangle =  90.0
+
+mollerPol.polgem.m1.uangle = 0.0
+mollerPol.polgem.m1.vangle =  90.0
+
+mollerPol.polgem.m2.uangle = 0.0
+mollerPol.polgem.m2.vangle =  90.0
+
+mollerPol.polgem.m3.uangle = 0.0
+mollerPol.polgem.m3.vangle =  90.0
+
+mollerPol.polgem.m4.uangle = 0.0
+mollerPol.polgem.m4.vangle =  90.0
+
+mollerPol.polgem.m5.uangle = 0.0
+mollerPol.polgem.m5.vangle =  90.0
+
+mollerPol.polgem.m6.uangle = -13.25
+mollerPol.polgem.m6.vangle = 13.25
+
+mollerPol.polgem.m7.uangle = -13.25
+mollerPol.polgem.m7.vangle = 13.25
+# ======================================================================
+# Strip offsets
+# ======================================================================
+
+mollerPol.polgem.m0.uoffset = 0.0
+mollerPol.polgem.m1.uoffset = 0.0
+mollerPol.polgem.m2.uoffset = 0.0
+mollerPol.polgem.m3.uoffset = 0.0
+mollerPol.polgem.m4.uoffset = 0.0
+mollerPol.polgem.m5.uoffset = 0.0
+
+mollerPol.polgem.m0.voffset = 0.0
+mollerPol.polgem.m1.voffset = 0.0
+mollerPol.polgem.m2.voffset = 0.0
+mollerPol.polgem.m3.voffset = 0.0
+mollerPol.polgem.m4.voffset = 0.0
+mollerPol.polgem.m5.voffset = 0.0
+
+mollerPol.polgem.m6.uoffset = 0.045
+mollerPol.polgem.m6.voffset =  -0.045
+
+mollerPol.polgem.m7.uoffset = 0.0450
+mollerPol.polgem.m7.voffset =  -0.0450
+# ======================================================================
+# Strip pitch
+# ======================================================================
+
+mollerPol.polgem.m0.upitch = 0.0004
+mollerPol.polgem.m1.upitch = 0.0004
+mollerPol.polgem.m2.upitch = 0.0004
+mollerPol.polgem.m3.upitch = 0.0004
+mollerPol.polgem.m4.upitch = 0.0004
+mollerPol.polgem.m5.upitch = 0.0004
+
+mollerPol.polgem.m0.vpitch = 0.0004
+mollerPol.polgem.m1.vpitch = 0.0004
+mollerPol.polgem.m2.vpitch = 0.0004
+mollerPol.polgem.m3.vpitch = 0.0004
+mollerPol.polgem.m4.vpitch = 0.0004
+mollerPol.polgem.m5.vpitch = 0.0004
+
+mollerPol.polgem.m6.upitch = 0.00082
+mollerPol.polgem.m6.vpitch = 0.00082
+
+mollerPol.polgem.m7.upitch = 0.00082
+mollerPol.polgem.m7.vpitch = 0.00082
+# ======================================================================
+# Hit finding / timing / tracking parameters
+# ======================================================================
+
+mollerPol.polgem.threshold_sample = 50 #60 #15.0 #30
+mollerPol.polgem.threshold_stripsum = 60 #150 #50.0 #100
+mollerPol.polgem.threshold_clustersum =  150 #150 #100.0 #130
+
+mollerPol.polgem.m6.threshold_sample = 50 #50 #60 #15.0 #30
+mollerPol.polgem.m6.threshold_stripsum = 180 #250 #150 #50.0 #100
+mollerPol.polgem.m6.threshold_clustersum =  180 #250 #150 #100.0 #130
+
+
+mollerPol.polgem.ADCasym_cut = 0.7 #0.7
+mollerPol.polgem.deltat_cut = 35 #30.0
+
+mollerPol.polgem.peakprominence_minsigma = 2.5 #3.5
+mollerPol.polgem.peakprominence_minfraction = 0.15 #0.3 #0.2 #0.15
+
+mollerPol.polgem.maxnu_charge = 4
+mollerPol.polgem.maxnv_charge = 4
+mollerPol.polgem.maxnu_pos = 3
+mollerPol.polgem.maxnv_pos = 3
+
+mollerPol.polgem.m6.maxnu_charge = 3
+mollerPol.polgem.m6.maxnv_charge = 3
+mollerPol.polgem.m6.maxnu_pos = 2
+mollerPol.polgem.m6.maxnv_pos = 2
+# turn on "soft" hit filtering:
+mollerPol.polgem.filterflag1D = 0 # -1 = no filtering: don't require 1D hits to pass any cuts other than basic zero suppression
+mollerPol.polgem.filterflag2D = 0  # 1 = "hard" filtering: require 2D hits to pass all cuts
+
+mollerPol.polgem.sigmahitshape = 0.0004 #0.0004 #0.00030
+mollerPol.polgem.sigmahitpos = 0.00020 #0.0004 #0.0004
+mollerPol.polgem.trackchi2cut = 1000.0
+
+mollerPol.polgem.onlinezerosuppression = 0
+mollerPol.polgem.zerosuppress = 1
+mollerPol.polgem.zerosuppress_nsigma = 5.0
+
+mollerPol.polgem.minhitsontrack = 4
+mollerPol.polgem.maxhitcombos = 50000
+mollerPol.polgem.maxhitcombos_inner = 50000
+mollerPol.polgem.maxhitcombos_total = 1.e6
+mollerPol.polgem.tryfasttrack = 1
+
+mollerPol.polgem.gridbinwidthx = 0.05 #0.015 #0.01 #0.03
+mollerPol.polgem.gridbinwidthy = 0.05 #0.015 #0.01 #0.03
+mollerPol.polgem.gridedgetolerancex = 0.0025 #0.0025
+mollerPol.polgem.gridedgetolerancey = 0.0025 #0.0025
+
+mollerPol.polgem.xpfp_min = -0.17633
+mollerPol.polgem.xpfp_max =  0.17633
+mollerPol.polgem.ypfp_min = -0.17633
+mollerPol.polgem.ypfp_max =  0.17633
+#mollerPol.polgem.xpfp_min = -1.0
+#mollerPol.polgem.xpfp_max =  1.0
+#mollerPol.polgem.ypfp_min = -1.0
+#mollerPol.polgem.ypfp_max =  1.0
+
+mollerPol.polgem.usestriptimingcut = 1
+mollerPol.polgem.useTSchi2cut = 0
+#mollerPol.polgem.maxstrip_t0 = 73
+#mollerPol.polgem.maxstrip_tsigma = 6 #16.0
+
+
+mollerPol.polgem.m0.maxstrip_t0 = 68.66 64.97
+mollerPol.polgem.m1.maxstrip_t0 = 67.77 64.57
+mollerPol.polgem.m2.maxstrip_t0 = 72.85 68.61
+mollerPol.polgem.m3.maxstrip_t0 = 72.26 69.58
+mollerPol.polgem.m4.maxstrip_t0 = 72.59 67.68
+mollerPol.polgem.m5.maxstrip_t0 = 71.46 68.53
+mollerPol.polgem.m6.maxstrip_t0 = 74.02 74.73
+
+mollerPol.polgem.m0.maxstrip_tsigma = 9.775 10.83 #16.0
+mollerPol.polgem.m1.maxstrip_tsigma = 10.29 11.86 #16.0
+mollerPol.polgem.m2.maxstrip_tsigma = 9.53 11.17 #16.0
+mollerPol.polgem.m3.maxstrip_tsigma = 9.55 10.84 #16.0
+mollerPol.polgem.m4.maxstrip_tsigma = 9.133 10.69 #16.0
+mollerPol.polgem.m5.maxstrip_tsigma = 9.92 11.52 #16.0
+mollerPol.polgem.m6.maxstrip_tsigma = 12.77 9.35 #16.0
+
+#mollerPol.polgem.HitTimeMean = 70 #70.0
+#mollerPol.polgem.HitTimeSigma = 3 #6.0
+
+mollerPol.polgem.m0.HitTimeMean = 67.87  67.87 #70.0
+mollerPol.polgem.m1.HitTimeMean = 69.02 69.02 #70.0
+mollerPol.polgem.m2.HitTimeMean = 71.97 71.97 #70.0
+mollerPol.polgem.m3.HitTimeMean = 72.72 72.72 #70.0
+mollerPol.polgem.m4.HitTimeMean = 69.36 70.63 #70.0
+mollerPol.polgem.m5.HitTimeMean = 70.66 71.82 #70.0
+mollerPol.polgem.m6.HitTimeMean = 76.35  75.7 #70.0
+
+mollerPol.polgem.m0.HitTimeSigma = 5.35 5.35 #6.0
+mollerPol.polgem.m1.HitTimeSigma = 5.32 5.32 #6.0
+mollerPol.polgem.m2.HitTimeSigma = 5.56 5.56 #6.0
+mollerPol.polgem.m3.HitTimeSigma = 5.53 5.53 #6.0
+mollerPol.polgem.m4.HitTimeSigma = 5.28 5.41 #6.0
+mollerPol.polgem.m5.HitTimeSigma = 5.819  5.66 #6.0
+mollerPol.polgem.m6.HitTimeSigma = 6.424 5.573 #6.0
+
+mollerPol.polgem.useconstraint = 0
+mollerPol.polgem.useopticsconstraint = 0
+mollerPol.polgem.useslopeconstraint = 0
+
+# ======================================================================
+# Decode maps
+# ======================================================================
+# Ordering:
+#   crate slot fiber gemid adc_ch i2c pos invert axis
+#
+#   axis = 0 -> u
+#   axis = 1 -> v
+# ======================================================================
+
+# ----------------------------------------------------------------------
+# XY layer 0, left virtual half
+# ----------------------------------------------------------------------
+mollerPol.polgem.m0.chanmap =
+      2      13       5      12       0        4       4       1       1
+      2      13       5      12       1        3       3       1       1
+      2      13       5      12       2        2       2       1       1
+      2      13       5      12       3        1       1       1       1
+      2      13       5      12       4        0       0       1       1
+      2      13       5      12      10       26       0       0       0
+      2      13       5      12      11       25       1       0       0
+
+# ----------------------------------------------------------------------
+# XY layer 0, right virtual half
+# ----------------------------------------------------------------------
+mollerPol.polgem.m1.chanmap =
+      2      13       5      11       5       12       4       0       1
+      2      13       5      11       6       11       3       0       1
+      2      13       5      11       7       10       2       0       1
+      2      13       5      11       8        9       1       0       1
+      2      13       5      11       9        8       0       0       1
+      2      13       5      11      11       25       0       0       0
+      2      13       5      11      12       24       1       0       0
+
+# ----------------------------------------------------------------------
+# XY layer 1, left virtual half
+# ----------------------------------------------------------------------
+mollerPol.polgem.m2.chanmap =
+      2      13       6      22       0        4       4       1       1
+      2      13       6      22       1        3       3       1       1
+      2      13       6      22       2        2       2       1       1
+      2      13       6      22       3        1       1       1       1
+      2      13       6      22       4        0       0       1       1
+      2      13       6      22      10       26       0       0       0
+      2      13       6      22      11       25       1       0       0
+
+# ----------------------------------------------------------------------
+# XY layer 1, right virtual half
+# ----------------------------------------------------------------------
+mollerPol.polgem.m3.chanmap =
+      2      13       6      21       5       12       4       0       1
+      2      13       6      21       6       11       3       0       1
+      2      13       6      21       7       10       2       0       1
+      2      13       6      21       8        9       1       0       1
+      2      13       6      21       9        8       0       0       1
+      2      13       6      21      11       25       0       0       0
+      2      13       6      21      12       24       1       0       0
+
+# ----------------------------------------------------------------------
+# XY layer 2, left virtual half
+# ----------------------------------------------------------------------
+mollerPol.polgem.m4.chanmap =
+      2      13       7      32       0        4       4       1       1
+      2      13       7      32       1        3       3       1       1
+      2      13       7      32       2        2       2       1       1
+      2      13       7      32       3        1       1       1       1
+      2      13       7      32       4        0       0       1       1
+      2      13       7      32      10       26       0       0       0
+      2      13       7      32      11       25       1       0       0
+
+# ----------------------------------------------------------------------
+# XY layer 2, right virtual half
+# ----------------------------------------------------------------------
+mollerPol.polgem.m5.chanmap =
+      2      13       7      31       5       12       4       0       1
+      2      13       7      31       6       11       3       0       1
+      2      13       7      31       7       10       2       0       1
+      2      13       7      31       8        9       1       0       1
+      2      13       7      31       9        8       0       0       1
+      2      13       7      31      11       25       0       0       0
+      2      13       7      31      12       24       1       0       0
+
+# ----------------------------------------------------------------------
+# UV / MOLLER coordinate GEM
+# ----------------------------------------------------------------------
+mollerPol.polgem.m6.chanmap =
+      2      13       3       1       0       15       0       0       0
+      2      13       3       1       2       13       1       0       0
+      2      13       3       1       4       11       2       0       0
+      2      13       3       1       6        9       3       0       0
+      2      13       3       1       8        7       4       0       0
+      2      13       3       1       1       14       0       0       1
+      2      13       3       1       3       12       1       0       1
+      2      13       3       1       5       10       2       0       1
+      2      13       3       1       7        8       3       0       1
+      2      13       3       1       9        6       4       0       1
+
+mollerPol.polgem.m7.chanmap =
+      2      13       2       2       0       15       0       0       0
+      2      13       2       2       2       13       1       0       0
+      2      13       2       2       4       11       2       0       0
+      2      13       2       2       6        9       3       0       0
+      2      13       2       2       8        7       4       0       0
+      2      13       2       2       1       14       0       0       1
+      2      13       2       2       3       12       1       0       1
+      2      13       2       2       5       10       2       0       1
+      2      13       2       2       7        8       3       0       1
+      2      13       2       2       9        6       4       0       1
+# ======================================================================
+# Pedestal / common-mode files
+# ======================================================================
+#mollerPol.polgem.cmfile  = ../DB/gemped/db_cmr_mollerPol_polgem_run2309.dat
+#mollerPol.polgem.pedfile = ../DB/gemped/daq_ped_mollerPol_polgem_run2309.dat
+mollerPol.polgem.cmfile  = ../DB/gemped/db_cmr_mollerPol_polgem_run2315.dat
+mollerPol.polgem.pedfile = ../DB/gemped/daq_ped_mollerPol_polgem_run2315.dat

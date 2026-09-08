@@ -1,0 +1,331 @@
+#tree variables:
+block mollerPol.polgem.track.*
+block mollerPol.polgem.hit.*
+block mollerPol.polgem.*
+variable mollerPol.polgem.nlayershit
+variable mollerPol.polgem.nlayershitu
+variable mollerPol.polgem.nlayershitv
+variable mollerPol.polgem.nlayershituv
+variable mollerPol.polgem.nstripsu_layer
+variable mollerPol.polgem.nstripsv_layer
+variable mollerPol.polgem.nclustu_layer
+variable mollerPol.polgem.nclustv_layer
+variable mollerPol.polgem.n2Dhit_layer
+#block mollerPol.polgem.*.time.T0_by_APV
+#block mollerPol.polgem.*.time.Tref_coarse
+#block mollerPol.polgem.*.time.Tcoarse_by_APV
+#block mollerPol.polgem.*.time.Tfine_by_APV
+#block mollerPol.polgem.*.time.EventCount_by_APV
+#block mollerPol.polgem.*.time.T_ns_by_APV
+
+#Cuts:
+cut singletrack mollerPol.polgem.track.ntrack==1
+cut anytrack mollerPol.polgem.track.ntrack>0
+# Histogram definitions:
+# layers fired, strip and cluster multiplicities
+th1d hmollerPol_polgem_Nlayers_hit ';Number of layers with fired strips (u/x OR v/y);' mollerPol.polgem.nlayershit 6 -0.5 5.5
+th1d hmollerPol_polgem_Nlayers_hitu ';Number of layers with fired U/X strips;' mollerPol.polgem.nlayershitu 6 -0.5 5.5
+th1d hmollerPol_polgem_Nlayers_hitv ';Number of layers with fired V/Y strips;' mollerPol.polgem.nlayershitv 6 -0.5 5.5
+th1d hmollerPol_polgem_Nlayers_hituv ';Number of layers with 2D hits;' mollerPol.polgem.nlayershituv 6 -0.5 5.5
+
+th2d hmollerPol_polgem_NstripsU_layer ';layer;Number of U/X strips fired' [I] mollerPol.polgem.nstripsu_layer[I] 5 -0.5 4.5 101 -0.5 100.5
+th2d hmollerPol_polgem_NstripsV_layer ';layer;Number of V/Y strips fired' [I] mollerPol.polgem.nstripsv_layer[I] 5 -0.5 4.5 101 -0.5 100.5
+th2d hmollerPol_polgem_NclustU_layer ';layer;Number of U/X clusters' [I] mollerPol.polgem.nclustu_layer[I] 5 -0.5 4.5 51 -0.5 50.5
+th2d hmollerPol_polgem_NclustV_layer ';layer;Number of V/Y clusters' [I] mollerPol.polgem.nclustv_layer[I] 5 -0.5 4.5 51 -0.5 50.5
+th2d hmollerPol_polgem_Nclust2D_layer ';layer;Number of 2D hits' [I] mollerPol.polgem.n2Dhit_layer[I] 5 -0.5 4.5 51 -0.5 50.5
+
+th1d hmollerPol_polgem_clustwidthU 'U/X clusters on tracks; cluster size in strips' mollerPol.polgem.hit.nstripu 10 0.5 10.5 singletrack
+th1d hmollerPol_polgem_clustwidthV 'V/Y clusters on tracks; cluster size in strips' mollerPol.polgem.hit.nstripv 10 0.5 10.5 singletrack
+th2d hmollerPol_polgem_clustwidthVvsU '2D hits on tracks; U/X cluster size ; V/Y cluster size' mollerPol.polgem.hit.nstripu mollerPol.polgem.hit.nstripv 10 0.5 10.5 10 0.5 10.5 singletrack
+th2d hmollerPol_polgem_clustwidthU_vs_module ';module;U/X cluster size' mollerPol.polgem.hit.module mollerPol.polgem.hit.nstripu 20 -0.5 19.5 10 0.5 10.5 singletrack
+th2d hmollerPol_polgem_clustwidthV_vs_module ';module;V/Y cluster size' mollerPol.polgem.hit.module mollerPol.polgem.hit.nstripv 20 -0.5 19.5 10 0.5 10.5 singletrack
+th1d hmollerPol_polgem_clust_Utime ';U/X cluster time (ns);' mollerPol.polgem.hit.Utime 150 0 150 singletrack
+th1d hmollerPol_polgem_clust_Vtime ';V/Y cluster time (ns);' mollerPol.polgem.hit.Vtime 150 0 150 singletrack
+th2d hmollerPol_polgem_clust_UVtime ';U/X cluster time (ns); V/Y cluster time (ns)' mollerPol.polgem.hit.Utime mollerPol.polgem.hit.Vtime 150 0 150 150 0 150 singletrack
+th1d hmollerPol_polgem_clust_deltat ';t_{U/X} - t_{V/Y} (ns);' mollerPol.polgem.hit.deltat 200 -50 50 singletrack
+th2d hmollerPol_polgem_clust_deltat_vs_tavg ';t_{avg} (ns); t_{diff} (ns)' mollerPol.polgem.hit.Tavg mollerPol.polgem.hit.deltat 150 0 150 200 -50 50 singletrack
+th1d hmollerPol_polgem_iSampMaxU ';Peak time sample, U/X strips;' mollerPol.polgem.hit.isampmaxUclust 6 -0.5 5.5
+th1d hmollerPol_polgem_iSampMaxV ';Peak time sample, V/Y strips;' mollerPol.polgem.hit.isampmaxVclust 6 -0.5 5.5
+th1d hmollerPol_polgem_CorrCoeff_clust ';Corr. Coeff., cluster sums;' mollerPol.polgem.hit.ccor_clust 202 -1.01 1.01 singletrack
+th1d hmollerPol_polgem_CorrCoeff_maxstrip ';Corr. Coeff., max strips;' mollerPol.polgem.hit.ccor_strip 202 -1.01 1.01 singletrack
+th1d hmollerPol_polgem_ADCasym ';(ADCU-ADCV)/(ADCU+ADCV)' mollerPol.polgem.hit.ADCasym 202 -1.01 1.01 singletrack
+
+th1d hmollerPol_polgem_ADCavg 'hits on tracks ;(ADCU+ADCV)/2;' mollerPol.polgem.hit.ADCavg 1500 0 30000 singletrack
+th2d hmollerPol_polgem_ADCasym_vs_ADCavg ';ADC avg;ADC asym.' mollerPol.polgem.hit.ADCavg mollerPol.polgem.hit.ADCasym 250 0 25000 250 -1.01 1.01
+th1d hmollerPol_polgem_ADCU_clust ';ADC cluster sum (U/X strips);' mollerPol.polgem.hit.ADCU 1500 0 30000 singletrack
+th1d hmollerPol_polgem_ADCV_clust ';ADC cluster sum (V/Y strips);' mollerPol.polgem.hit.ADCV 1500 0 30000 singletrack
+th2d hmollerPol_polgem_ADCVvsU_clust ';ADC cluster sum (U/X); ADC cluster sum (V/Y)' mollerPol.polgem.hit.ADCU mollerPol.polgem.hit.ADCV 200 0 30000 200 0 30000 singletrack
+th2d hmollerPol_polgem_ADCavg_vs_module ';module; Cluster ADC avg' mollerPol.polgem.hit.module mollerPol.polgem.hit.ADCavg 20 -0.5 19.5 250 0 25000
+th1d hmollerPol_polgem_ADCU_maxstrip ';Max strip ADC sum (U/X strips);' mollerPol.polgem.hit.ADCmaxstripU 1500 0 15000 singletrack
+th1d hmollerPol_polgem_ADCV_maxstrip ';Max strip ADC sum (V/Y strips);' mollerPol.polgem.hit.ADCmaxstripV 1500 0 15000 singletrack
+th2d hmollerPol_polgem_ADCVvsU_maxstrip ';Max strip ADC sum (U/X); Max strip ADC sum (V/Y)' mollerPol.polgem.hit.ADCmaxstripU mollerPol.polgem.hit.ADCmaxstripV 200 0 12000 200 0 12000 singletrack
+th1d hmollerPol_polgem_ADCU_maxsample ';U/X max strip max sample;' mollerPol.polgem.hit.ADCmaxsampU 500 0 4000 singletrack
+th1d hmollerPol_polgem_ADCV_maxsample ';V/Y max strip max sample;' mollerPol.polgem.hit.ADCmaxsampV 500 0 4000 singletrack
+th2d hmollerPol_polgem_ADCVvsU_maxsample ';Max strip max sample (U/X);Max strip max sample (V/Y)' mollerPol.polgem.hit.ADCmaxsampU mollerPol.polgem.hit.ADCmaxsampV 200 0 4000 200 0 4000 singletrack
+th1d hmollerPol_polgem_ADCU_maxclustsample ';Max cluster-summed U/X sample;' mollerPol.polgem.hit.ADCmaxsampUclust 500 0 8000 singletrack
+th1d hmollerPol_polgem_ADCV_maxclustsample ';Max cluster-summed V/Y sample;' mollerPol.polgem.hit.ADCmaxsampVclust 500 0 8000 singletrack
+th2d hmollerPol_polgem_ADCVvsU_maxclustsample ';Max cluster-summed sample (U/X);Max cluster-summed sample (V/Y)' mollerPol.polgem.hit.ADCmaxsampUclust mollerPol.polgem.hit.ADCmaxsampVclust 200 0 8000 200 0 8000 singletrack
+
+th1d hmollerPol_polgem_Ntracks ';Number of tracks found;' mollerPol.polgem.track.ntrack 11 -0.5 10.5
+th1d hmollerPol_polgem_TrackNhits ';Number of hits on first/best track;' mollerPol.polgem.track.nhits[I] 6 -0.5 5.5 singletrack
+th1d hmollerPol_polgem_TrackX ';Best track X(z=0), m;' mollerPol.polgem.track.x[I] 200 -0.325 0.325 singletrack
+th1d hmollerPol_polgem_TrackY ';Best track Y(z=0), m;' mollerPol.polgem.track.y[I] 200 -1.1 1.1 singletrack
+th1d hmollerPol_polgem_TrackXp ';Best track dx/dz;' mollerPol.polgem.track.xp[I] 200 -0.6 0.6 singletrack
+th1d hmollerPol_polgem_TrackYp ';Best track dy/dz;' mollerPol.polgem.track.yp[I] 200 -1.2 1.2 singletrack
+th2d hmollerPol_polgem_TrackXY 'Best track; y(m); x(m)' mollerPol.polgem.track.y[I] mollerPol.polgem.track.x[I] 150 -1.1 1.1 150 -0.325 0.325 singletrack
+th2d hmollerPol_polgem_TrackXpYp 'Best track ;dy/dz;dx/dz' mollerPol.polgem.track.yp[I] mollerPol.polgem.track.xp[I] 150 -1.2 1.2 150 -0.6 0.6 singletrack
+th1d hmollerPol_polgem_TrackChi2NDF ';Best track chi2/ndf;' mollerPol.polgem.track.chi2ndf[I] 200 0 200 singletrack
+
+th1d hmollerPol_polgem_residu_allhits 'All hits; Track u/x incl. residuals (m);' mollerPol.polgem.hit.residu 500 -0.0025 0.0025 singletrack
+th1d hmollerPol_polgem_residv_allhits 'All hits; Track v/y incl. residuals (m);' mollerPol.polgem.hit.residv 500 -0.0025 0.0025 singletrack
+th1d hmollerPol_polgem_eresidu_allhits 'All hits; Track u/x excl. residuals (m);' mollerPol.polgem.hit.eresidu 1000 -0.005 0.005 singletrack
+th1d hmollerPol_polgem_eresidv_allhits 'All hits; Track v/y excl. residuals (m);' mollerPol.polgem.hit.eresidv 1000 -0.005 0.005 singletrack
+th2d hmollerPol_polgem_residu_vs_layer ';layer; Track u/x incl. residuals (m)' mollerPol.polgem.hit.layer mollerPol.polgem.hit.residu 5 -0.5 4.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_residv_vs_layer ';layer; Track v/y incl. residuals (m)' mollerPol.polgem.hit.layer mollerPol.polgem.hit.residv 5 -0.5 4.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_residu_vs_module ';module; Track u/x incl. residuals (m)' mollerPol.polgem.hit.module mollerPol.polgem.hit.residu 20 -0.5 19.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_residv_vs_module ';module; Track v/y incl. residuals (m)' mollerPol.polgem.hit.module mollerPol.polgem.hit.residv 20 -0.5 19.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_eresidu_vs_layer ';layer; Track u/x excl. residuals (m)' mollerPol.polgem.hit.layer mollerPol.polgem.hit.eresidu 5 -0.5 4.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_eresidv_vs_layer ';layer; Track v/y excl. residuals (m)' mollerPol.polgem.hit.layer mollerPol.polgem.hit.eresidv 5 -0.5 4.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_eresidu_vs_module ';module; Track u/x excl. residuals (m)' mollerPol.polgem.hit.module mollerPol.polgem.hit.eresidu 20 -0.5 19.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_eresidv_vs_module ';module; Track v/y excl. residuals (m)' mollerPol.polgem.hit.module mollerPol.polgem.hit.eresidv 20 -0.5 19.5 250 -0.0025 0.0025 singletrack
+th2d hmollerPol_polgem_hit_xglobal_vs_layer ';layer; Hit x global (m)' mollerPol.polgem.hit.layer mollerPol.polgem.hit.xglobal 5 -0.5 4.5 250 -0.325 0.325
+th2d hmollerPol_polgem_hit_yglobal_vs_layer ';layer; Hit y global (m)' mollerPol.polgem.hit.layer mollerPol.polgem.hit.yglobal 5 -0.5 4.5 250 -1.1 1.1
+
+# Module-specific histograms:
+# Module 0 strip histograms, all strips:
+th1d hmollerPol_polgem_m0_nstripstot_good 'mollerPol.polgem.m0; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m0.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m0.ontrack
+th1d hmollerPol_polgem_m0_nclustU_good 'mollerPol.polgem.m0; num. U clusters;' mollerPol.polgem.m0.clust.nclustu 21 0.5 20.5 mollerPol.polgem.m0.ontrack
+th1d hmollerPol_polgem_m0_nclustV_good 'mollerPol.polgem.m0; num. V clusters; ' mollerPol.polgem.m0.clust.nclustv 21 0.5 20.5 mollerPol.polgem.m0.ontrack
+th1d hmollerPol_polgem_m0_nstripstot_all 'mollerPol.polgem.m0; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m0.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m0_nclustU_all 'mollerPol.polgem.m0; num. U clusters;' mollerPol.polgem.m0.clust.nclustu 21 0.5 20.5
+th1d hmollerPol_polgem_m0_nclustV_all 'mollerPol.polgem.m0; num. V clusters;' mollerPol.polgem.m0.clust.nclustv 21 0.5 20.5
+th1d hmollerPol_polgem_m0_stripU_all 'mollerPol.polgem.m0; U/X strip index; ' mollerPol.polgem.m0.strip.istrip[I] 192 -0.5 191.5 mollerPol.polgem.m0.strip.IsU[I]
+th1d hmollerPol_polgem_m0_stripV_all 'mollerPol.polgem.m0; V/Y strip index; ' mollerPol.polgem.m0.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m0_ADCsumU_all 'mollerPol.polgem.m0; Strip ADC sum, U/X strips;' mollerPol.polgem.m0.strip.ADCsum[I] 1000 0 6000 mollerPol.polgem.m0.strip.IsU[I]
+th1d hmollerPol_polgem_m0_ADCsumV_all 'mollerPol.polgem.m0; Strip ADC sum, V/Y strips;' mollerPol.polgem.m0.strip.ADCsum[I] 1000 0 6000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m0_ADCmaxU_all 'mollerPol.polgem.m0; Strip ADC max, U/X strips;' mollerPol.polgem.m0.strip.ADCmax[I] 500 0 2000 mollerPol.polgem.m0.strip.IsU[I]
+th1d hmollerPol_polgem_m0_ADCmaxV_all 'mollerPol.polgem.m0; Strip ADC max, V/Y strips; ' mollerPol.polgem.m0.strip.ADCmax[I] 500 0 2000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m0_TimeU_all 'mollerPol.polgem.m0; Strip Time, U/X strips;' mollerPol.polgem.m0.strip.Tmean[I] 150 0 150 mollerPol.polgem.m0.strip.IsU[I]
+th1d hmollerPol_polgem_m0_TimeV_all 'mollerPol.polgem.m0; Strip Time, V/Y strips;' mollerPol.polgem.m0.strip.Tmean[I] 150 0 150 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m0_iSampMaxU_all 'mollerPol.polgem.m0; Peak time sample, U/X strips;' mollerPol.polgem.m0.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m0.strip.IsU[I]
+th1d hmollerPol_polgem_m0_iSampMaxV_all 'mollerPol.polgem.m0; Peak time sample, V/Y strips;' mollerPol.polgem.m0.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m0_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m0; U strip ADC sum vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCsum[I] 192 -0.5 191.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m0_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m0; V strip ADC sum vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m0_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m0; U strip ADC max vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCmax[I] 192 -0.5 191.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m0_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m0; V strip ADC max vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m0_hit_xlocal 'Hit local X position (m), Module 0' mollerPol.polgem.m0.hit.hitx[I] 200 -0.040 0.040 #mollerPol.polgem.m0.hit.ontrack[I]
+th1d hmollerPol_polgem_m0_hit_ylocal 'Hit local Y position (m), Module 0' mollerPol.polgem.m0.hit.hity[I] 700 -0.15 0.15 #mollerPol.polgem.m0.hit.ontrack[I]
+th2d hmollerPol_polgem_m0_hit_xylocal 'Hit local X vs Y (m), Module 0' mollerPol.polgem.m0.hit.hitx[I] mollerPol.polgem.m0.hit.hity[I]  100 -0.040 0.040 300 -0.15 0.15 #mollerPol.polgem.m0.hit.ontrack[I]
+th1d hmollerPol_polgem_m0_clustSizeU_all 'mollerPol.polgem.m0; Cluster Size, U/X strips;' mollerPol.polgem.m0.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m0.strip.IsU[I]
+th1d hmollerPol_polgem_m0_clustSizeV_all 'mollerPol.polgem.m0; Cluster Size, V/Y strips;' mollerPol.polgem.m0.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m0.strip.IsV[I]
+
+
+th1d hmollerPol_polgem_m1_nstripstot_good 'mollerPol.polgem.m1; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m1.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m1.ontrack
+th1d hmollerPol_polgem_m1_nclustU_good 'mollerPol.polgem.m1; num. U clusters;' mollerPol.polgem.m1.clust.nclustu 21 -0.5 20.5 mollerPol.polgem.m1.ontrack
+th1d hmollerPol_polgem_m1_nclustV_good 'mollerPol.polgem.m1; num. V clusters; ' mollerPol.polgem.m1.clust.nclustv 21 -0.5 20.5 mollerPol.polgem.m1.ontrack
+th1d hmollerPol_polgem_m1_nstripstot_all 'mollerPol.polgem.m1; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m1.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m1_nclustU_all 'mollerPol.polgem.m1; num. U clusters;' mollerPol.polgem.m1.clust.nclustu 21 -0.5 20.5
+th1d hmollerPol_polgem_m1_nclustV_all 'mollerPol.polgem.m1; num. V clusters;' mollerPol.polgem.m1.clust.nclustv 21 -0.5 20.5
+th1d hmollerPol_polgem_m1_stripU_all 'mollerPol.polgem.m1; U/X strip index; ' mollerPol.polgem.m1.strip.istrip[I] 192 -0.5 191.5 mollerPol.polgem.m1.strip.IsU[I]
+th1d hmollerPol_polgem_m1_stripV_all 'mollerPol.polgem.m1; V/Y strip index; ' mollerPol.polgem.m1.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m1.strip.IsV[I]
+th1d hmollerPol_polgem_m1_ADCsumU_all 'mollerPol.polgem.m1; Strip ADC sum, U/X strips;' mollerPol.polgem.m1.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m1.strip.IsU[I]
+th1d hmollerPol_polgem_m1_ADCsumV_all 'mollerPol.polgem.m1; Strip ADC sum, V/Y strips;' mollerPol.polgem.m1.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m1.strip.IsV[I]
+th1d hmollerPol_polgem_m1_ADCmaxU_all 'mollerPol.polgem.m1; Strip ADC max, U/X strips;' mollerPol.polgem.m1.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m1.strip.IsU[I]
+th1d hmollerPol_polgem_m1_ADCmaxV_all 'mollerPol.polgem.m1; Strip ADC max, V/Y strips; ' mollerPol.polgem.m1.strip.ADCmax[I] 500 0 2000 mollerPol.polgem.m1.strip.IsV[I]
+th1d hmollerPol_polgem_m1_TimeU_all 'mollerPol.polgem.m1; Strip Time, U/X strips;' mollerPol.polgem.m1.strip.Tmean[I] 150 0 150 mollerPol.polgem.m1.strip.IsU[I]
+th1d hmollerPol_polgem_m1_TimeV_all 'mollerPol.polgem.m1; Strip Time, V/Y strips;' mollerPol.polgem.m1.strip.Tmean[I] 150 0 150 mollerPol.polgem.m1.strip.IsV[I]
+th1d hmollerPol_polgem_m1_iSampMaxU_all 'mollerPol.polgem.m1; Peak time sample, U/X strips;' mollerPol.polgem.m1.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m1.strip.IsU[I]
+th1d hmollerPol_polgem_m1_iSampMaxV_all 'mollerPol.polgem.m1; Peak time sample, V/Y strips;' mollerPol.polgem.m1.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m1.strip.IsV[I]
+th2d hmollerPol_polgem_m1_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m1; U strip ADC sum vs strip;' mollerPol.polgem.m1.strip.istrip[I] mollerPol.polgem.m1.strip.ADCsum[I] 192 -0.5 191.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m1_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m1; V strip ADC sum vs strip;' mollerPol.polgem.m1.strip.istrip[I] mollerPol.polgem.m1.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m1_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m1; U strip ADC max vs strip;' mollerPol.polgem.m1.strip.istrip[I] mollerPol.polgem.m1.strip.ADCmax[I] 192 -0.5 191.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m1_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m1; V strip ADC max vs strip;' mollerPol.polgem.m1.strip.istrip[I] mollerPol.polgem.m1.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m1_hit_xlocal 'Hit local X position (m), Module 1' mollerPol.polgem.m1.hit.hitx[I] 200 -0.040 0.040 #mollerPol.polgem.m1.hit.ontrack[I]
+th1d hmollerPol_polgem_m1_hit_ylocal 'Hit local Y position (m), Module 1' mollerPol.polgem.m1.hit.hity[I] 700 -0.15 0.15 #mollerPol.polgem.m1.hit.ontrack[I]
+th2d hmollerPol_polgem_m1_hit_xylocal 'Hit local X vs Y (m), Module 1' mollerPol.polgem.m1.hit.hitx[I] mollerPol.polgem.m1.hit.hity[I]  100 -0.040 0.040 300 -0.15 0.15 #mollerPol.polgem.m1.hit.ontrack[I]
+th1d hmollerPol_polgem_m1_clustSizeU_all 'mollerPol.polgem.m1; Cluster Size, U/X strips;' mollerPol.polgem.m1.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m1.strip.IsU[I]
+th1d hmollerPol_polgem_m1_clustSizeV_all 'mollerPol.polgem.m1; Cluster Size, V/Y strips;' mollerPol.polgem.m1.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m1.strip.IsV[I]
+
+th1d hmollerPol_polgem_m2_nstripstot_good 'mollerPol.polgem.m2; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m2.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m2.ontrack
+th1d hmollerPol_polgem_m2_nclustU_good 'mollerPol.polgem.m2; num. U clusters;' mollerPol.polgem.m2.clust.nclustu 21 -0.5 20.5 mollerPol.polgem.m2.ontrack
+th1d hmollerPol_polgem_m2_nclustV_good 'mollerPol.polgem.m2; num. V clusters; ' mollerPol.polgem.m2.clust.nclustv 21 -0.5 20.5 mollerPol.polgem.m2.ontrack
+th1d hmollerPol_polgem_m2_nstripstot_all 'mollerPol.polgem.m2; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m2.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m2_nclustU_all 'mollerPol.polgem.m2; num. U clusters;' mollerPol.polgem.m2.clust.nclustu 21 -0.5 20.5
+th1d hmollerPol_polgem_m2_nclustV_all 'mollerPol.polgem.m2; num. V clusters;' mollerPol.polgem.m2.clust.nclustv 21 -0.5 20.5
+th1d hmollerPol_polgem_m2_stripU_all 'mollerPol.polgem.m2; U/X strip index; ' mollerPol.polgem.m2.strip.istrip[I] 192 -0.5 191.5 mollerPol.polgem.m2.strip.IsU[I]
+th1d hmollerPol_polgem_m2_stripV_all 'mollerPol.polgem.m2; V/Y strip index; ' mollerPol.polgem.m2.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m2.strip.IsV[I]
+th1d hmollerPol_polgem_m2_ADCsumU_all 'mollerPol.polgem.m2; Strip ADC sum, U/X strips;' mollerPol.polgem.m2.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m2.strip.IsU[I]
+th1d hmollerPol_polgem_m2_ADCsumV_all 'mollerPol.polgem.m2; Strip ADC sum, V/Y strips;' mollerPol.polgem.m2.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m2.strip.IsV[I]
+th1d hmollerPol_polgem_m2_ADCmaxU_all 'mollerPol.polgem.m2; Strip ADC max, U/X strips;' mollerPol.polgem.m2.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m2.strip.IsU[I]
+th1d hmollerPol_polgem_m2_ADCmaxV_all 'mollerPol.polgem.m2; Strip ADC max, V/Y strips; ' mollerPol.polgem.m2.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m2.strip.IsV[I]
+th1d hmollerPol_polgem_m2_TimeU_all 'mollerPol.polgem.m2; Strip Time, U/X strips;' mollerPol.polgem.m2.strip.Tmean[I] 150 0 150 mollerPol.polgem.m2.strip.IsU[I]
+th1d hmollerPol_polgem_m2_TimeV_all 'mollerPol.polgem.m2; Strip Time, V/Y strips;' mollerPol.polgem.m2.strip.Tmean[I] 150 0 150 mollerPol.polgem.m2.strip.IsV[I]
+th1d hmollerPol_polgem_m2_iSampMaxU_all 'mollerPol.polgem.m2; Peak time sample, U/X strips;' mollerPol.polgem.m2.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m2.strip.IsU[I]
+th1d hmollerPol_polgem_m2_iSampMaxV_all 'mollerPol.polgem.m2; Peak time sample, V/Y strips;' mollerPol.polgem.m2.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m2.strip.IsV[I]
+th2d hmollerPol_polgem_m2_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m2; U strip ADC sum vs strip;' mollerPol.polgem.m2.strip.istrip[I] mollerPol.polgem.m2.strip.ADCsum[I] 192 -0.5 191.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m2_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m2; V strip ADC sum vs strip;' mollerPol.polgem.m2.strip.istrip[I] mollerPol.polgem.m2.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m2_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m2; U strip ADC max vs strip;' mollerPol.polgem.m2.strip.istrip[I] mollerPol.polgem.m2.strip.ADCmax[I] 192 -0.5 191.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m2_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m2; V strip ADC max vs strip;' mollerPol.polgem.m2.strip.istrip[I] mollerPol.polgem.m2.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m2_hit_xlocal 'Hit local X position (m), Module 2' mollerPol.polgem.m2.hit.hitx[I] 200 -0.040 0.040 #mollerPol.polgem.m2.hit.ontrack[I]
+th1d hmollerPol_polgem_m2_hit_ylocal 'Hit local Y position (m), Module 2' mollerPol.polgem.m2.hit.hity[I] 700 -0.15 0.15 #mollerPol.polgem.m2.hit.ontrack[I]
+th2d hmollerPol_polgem_m2_hit_xylocal 'Hit local X vs Y (m), Module 2' mollerPol.polgem.m2.hit.hitx[I] mollerPol.polgem.m2.hit.hity[I]  100 -0.040 0.040 300 -0.15 0.15 #mollerPol.polgem.m2.hit.ontrack[I]
+th1d hmollerPol_polgem_m2_clustSizeU_all 'mollerPol.polgem.m2; Cluster Size, U/X strips;' mollerPol.polgem.m2.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m2.strip.IsU[I]
+th1d hmollerPol_polgem_m2_clustSizeV_all 'mollerPol.polgem.m2; Cluster Size, V/Y strips;' mollerPol.polgem.m2.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m2.strip.IsV[I]
+
+th1d hmollerPol_polgem_m3_nstripstot_good 'mollerPol.polgem.m3; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m3.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m3.ontrack
+th1d hmollerPol_polgem_m3_nclustU_good 'mollerPol.polgem.m3; num. U clusters;' mollerPol.polgem.m3.clust.nclustu 21 -0.5 20.5 mollerPol.polgem.m3.ontrack
+th1d hmollerPol_polgem_m3_nclustV_good 'mollerPol.polgem.m3; num. V clusters; ' mollerPol.polgem.m3.clust.nclustv 21 -0.5 20.5 mollerPol.polgem.m3.ontrack
+th1d hmollerPol_polgem_m3_nstripstot_all 'mollerPol.polgem.m3; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m3.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m3_nclustU_all 'mollerPol.polgem.m3; num. U clusters;' mollerPol.polgem.m3.clust.nclustu 21 -0.5 20.5
+th1d hmollerPol_polgem_m3_nclustV_all 'mollerPol.polgem.m3; num. V clusters;' mollerPol.polgem.m3.clust.nclustv 21 -0.5 20.5
+th1d hmollerPol_polgem_m3_stripU_all 'mollerPol.polgem.m3; U/X strip index; ' mollerPol.polgem.m3.strip.istrip[I] 192 -0.5 191.5 mollerPol.polgem.m3.strip.IsU[I]
+th1d hmollerPol_polgem_m3_stripV_all 'mollerPol.polgem.m3; V/Y strip index; ' mollerPol.polgem.m3.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m3.strip.IsV[I]
+th1d hmollerPol_polgem_m3_ADCsumU_all 'mollerPol.polgem.m3; Strip ADC sum, U/X strips;' mollerPol.polgem.m3.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m3.strip.IsU[I]
+th1d hmollerPol_polgem_m3_ADCsumV_all 'mollerPol.polgem.m3; Strip ADC sum, V/Y strips;' mollerPol.polgem.m3.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m3.strip.IsV[I]
+th1d hmollerPol_polgem_m3_ADCmaxU_all 'mollerPol.polgem.m3; Strip ADC max, U/X strips;' mollerPol.polgem.m3.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m3.strip.IsU[I]
+th1d hmollerPol_polgem_m3_ADCmaxV_all 'mollerPol.polgem.m3; Strip ADC max, V/Y strips; ' mollerPol.polgem.m3.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m3.strip.IsV[I]
+th1d hmollerPol_polgem_m3_TimeU_all 'mollerPol.polgem.m3; Strip Time, U/X strips;' mollerPol.polgem.m3.strip.Tmean[I] 150 0 150 mollerPol.polgem.m3.strip.IsU[I]
+th1d hmollerPol_polgem_m3_TimeV_all 'mollerPol.polgem.m3; Strip Time, V/Y strips;' mollerPol.polgem.m3.strip.Tmean[I] 150 0 150 mollerPol.polgem.m3.strip.IsV[I]
+th1d hmollerPol_polgem_m3_iSampMaxU_all 'mollerPol.polgem.m3; Peak time sample, U/X strips;' mollerPol.polgem.m3.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m3.strip.IsU[I]
+th1d hmollerPol_polgem_m3_iSampMaxV_all 'mollerPol.polgem.m3; Peak time sample, V/Y strips;' mollerPol.polgem.m3.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m3.strip.IsV[I]
+th2d hmollerPol_polgem_m3_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m3; U strip ADC sum vs strip;' mollerPol.polgem.m3.strip.istrip[I] mollerPol.polgem.m3.strip.ADCsum[I] 192 -0.5 191.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m3_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m3; V strip ADC sum vs strip;' mollerPol.polgem.m3.strip.istrip[I] mollerPol.polgem.m3.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m3_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m3; U strip ADC max vs strip;' mollerPol.polgem.m3.strip.istrip[I] mollerPol.polgem.m3.strip.ADCmax[I] 192 -0.5 191.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m3_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m3; V strip ADC max vs strip;' mollerPol.polgem.m3.strip.istrip[I] mollerPol.polgem.m3.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m3_hit_xlocal 'Hit local X position (m), Module 3' mollerPol.polgem.m3.hit.hitx[I] 200 -0.040 0.040 #mollerPol.polgem.m3.hit.ontrack[I]
+th1d hmollerPol_polgem_m3_hit_ylocal 'Hit local Y position (m), Module 3' mollerPol.polgem.m3.hit.hity[I] 700 -0.15 0.15 #mollerPol.polgem.m3.hit.ontrack[I]
+th2d hmollerPol_polgem_m3_hit_xylocal 'Hit local X vs Y (m), Module 3' mollerPol.polgem.m3.hit.hitx[I] mollerPol.polgem.m3.hit.hity[I]  100 -0.040 0.040 300 -0.15 0.15 #mollerPol.polgem.m3.hit.ontrack[I]
+th1d hmollerPol_polgem_m3_clustSizeU_all 'mollerPol.polgem.m3; Cluster Size, U/X strips;' mollerPol.polgem.m3.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m3.strip.IsU[I]
+th1d hmollerPol_polgem_m3_clustSizeV_all 'mollerPol.polgem.m3; Cluster Size, V/Y strips;' mollerPol.polgem.m3.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m3.strip.IsV[I]
+
+th1d hmollerPol_polgem_m4_nstripstot_good 'mollerPol.polgem.m4; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m4.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m4.ontrack
+th1d hmollerPol_polgem_m4_nclustU_good 'mollerPol.polgem.m4; num. U clusters;' mollerPol.polgem.m4.clust.nclustu 21 -0.5 20.5 mollerPol.polgem.m4.ontrack
+th1d hmollerPol_polgem_m4_nclustV_good 'mollerPol.polgem.m4; num. V clusters; ' mollerPol.polgem.m4.clust.nclustv 21 -0.5 20.5 mollerPol.polgem.m4.ontrack
+th1d hmollerPol_polgem_m4_nstripstot_all 'mollerPol.polgem.m4; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m4.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m4_nclustU_all 'mollerPol.polgem.m4; num. U clusters;' mollerPol.polgem.m4.clust.nclustu 21 -0.5 20.5
+th1d hmollerPol_polgem_m4_nclustV_all 'mollerPol.polgem.m4; num. V clusters;' mollerPol.polgem.m4.clust.nclustv 21 -0.5 20.5
+th1d hmollerPol_polgem_m4_stripU_all 'mollerPol.polgem.m4; U/X strip index; ' mollerPol.polgem.m4.strip.istrip[I] 192 -0.5 191.5 mollerPol.polgem.m4.strip.IsU[I]
+th1d hmollerPol_polgem_m4_stripV_all 'mollerPol.polgem.m4; V/Y strip index; ' mollerPol.polgem.m4.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m4.strip.IsV[I]
+th1d hmollerPol_polgem_m4_ADCsumU_all 'mollerPol.polgem.m4; Strip ADC sum, U/X strips;' mollerPol.polgem.m4.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m4.strip.IsU[I]
+th1d hmollerPol_polgem_m4_ADCsumV_all 'mollerPol.polgem.m4; Strip ADC sum, V/Y strips;' mollerPol.polgem.m4.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m4.strip.IsV[I]
+th1d hmollerPol_polgem_m4_ADCmaxU_all 'mollerPol.polgem.m4; Strip ADC max, U/X strips;' mollerPol.polgem.m4.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m4.strip.IsU[I]
+th1d hmollerPol_polgem_m4_ADCmaxV_all 'mollerPol.polgem.m4; Strip ADC max, V/Y strips; ' mollerPol.polgem.m4.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m4.strip.IsV[I]
+th1d hmollerPol_polgem_m4_TimeU_all 'mollerPol.polgem.m4; Strip Time, U/X strips;' mollerPol.polgem.m4.strip.Tmean[I] 150 0 150 mollerPol.polgem.m4.strip.IsU[I]
+th1d hmollerPol_polgem_m4_TimeV_all 'mollerPol.polgem.m4; Strip Time, V/Y strips;' mollerPol.polgem.m4.strip.Tmean[I] 150 0 150 mollerPol.polgem.m4.strip.IsV[I]
+th1d hmollerPol_polgem_m4_iSampMaxU_all 'mollerPol.polgem.m4; Peak time sample, U/X strips;' mollerPol.polgem.m4.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m4.strip.IsU[I]
+th1d hmollerPol_polgem_m4_iSampMaxV_all 'mollerPol.polgem.m4; Peak time sample, V/Y strips;' mollerPol.polgem.m4.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m4.strip.IsV[I]
+th2d hmollerPol_polgem_m4_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m4; U strip ADC sum vs strip;' mollerPol.polgem.m4.strip.istrip[I] mollerPol.polgem.m4.strip.ADCsum[I] 192 -0.5 191.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m4_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m4; V strip ADC sum vs strip;' mollerPol.polgem.m4.strip.istrip[I] mollerPol.polgem.m4.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m4_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m4; U strip ADC max vs strip;' mollerPol.polgem.m4.strip.istrip[I] mollerPol.polgem.m4.strip.ADCmax[I] 192 -0.5 191.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m4_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m4; V strip ADC max vs strip;' mollerPol.polgem.m4.strip.istrip[I] mollerPol.polgem.m4.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m4_hit_xlocal 'Hit local X position (m), Module 4' mollerPol.polgem.m4.hit.hitx[I] 200 -0.040 0.040 #mollerPol.polgem.m4.hit.ontrack[I]
+th1d hmollerPol_polgem_m4_hit_ylocal 'Hit local Y position (m), Module 4' mollerPol.polgem.m4.hit.hity[I] 700 -0.15 0.15 #mollerPol.polgem.m4.hit.ontrack[I]
+th2d hmollerPol_polgem_m4_hit_xylocal 'Hit local X vs Y (m), Module 4' mollerPol.polgem.m4.hit.hitx[I] mollerPol.polgem.m4.hit.hity[I]  100 -0.040 0.040 300 -0.15 0.15 #mollerPol.polgem.m4.hit.ontrack[I]
+th1d hmollerPol_polgem_m4_clustSizeU_all 'mollerPol.polgem.m4; Cluster Size, U/X strips;' mollerPol.polgem.m4.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m4.strip.IsU[I]
+th1d hmollerPol_polgem_m4_clustSizeV_all 'mollerPol.polgem.m4; Cluster Size, V/Y strips;' mollerPol.polgem.m4.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m4.strip.IsV[I]
+
+th1d hmollerPol_polgem_m5_nstripstot_good 'mollerPol.polgem.m5; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m5.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m5.ontrack
+th1d hmollerPol_polgem_m5_nclustU_good 'mollerPol.polgem.m5; num. U clusters;' mollerPol.polgem.m5.clust.nclustu 21 -0.5 20.5 mollerPol.polgem.m5.ontrack
+th1d hmollerPol_polgem_m5_nclustV_good 'mollerPol.polgem.m5; num. V clusters; ' mollerPol.polgem.m5.clust.nclustv 21 -0.5 20.5 mollerPol.polgem.m5.ontrack
+th1d hmollerPol_polgem_m5_nstripstot_all 'mollerPol.polgem.m5; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m5.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m5_nclustU_all 'mollerPol.polgem.m5; num. U clusters;' mollerPol.polgem.m5.clust.nclustu 21 -0.5 20.5
+th1d hmollerPol_polgem_m5_nclustV_all 'mollerPol.polgem.m5; num. V clusters;' mollerPol.polgem.m5.clust.nclustv 21 -0.5 20.5
+th1d hmollerPol_polgem_m5_stripU_all 'mollerPol.polgem.m5; U/X strip index; ' mollerPol.polgem.m5.strip.istrip[I] 192 -0.5 191.5 mollerPol.polgem.m5.strip.IsU[I]
+th1d hmollerPol_polgem_m5_stripV_all 'mollerPol.polgem.m5; V/Y strip index; ' mollerPol.polgem.m5.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m5.strip.IsV[I]
+th1d hmollerPol_polgem_m5_ADCsumU_all 'mollerPol.polgem.m5; Strip ADC sum, U/X strips;' mollerPol.polgem.m5.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m5.strip.IsU[I]
+th1d hmollerPol_polgem_m5_ADCsumV_all 'mollerPol.polgem.m5; Strip ADC sum, V/Y strips;' mollerPol.polgem.m5.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m5.strip.IsV[I]
+th1d hmollerPol_polgem_m5_ADCmaxU_all 'mollerPol.polgem.m5; Strip ADC max, U/X strips;' mollerPol.polgem.m5.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m5.strip.IsU[I]
+th1d hmollerPol_polgem_m5_ADCmaxV_all 'mollerPol.polgem.m5; Strip ADC max, V/Y strips; ' mollerPol.polgem.m5.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m5.strip.IsV[I]
+th1d hmollerPol_polgem_m5_TimeU_all 'mollerPol.polgem.m5; Strip Time, U/X strips;' mollerPol.polgem.m5.strip.Tmean[I] 150 0 150 mollerPol.polgem.m5.strip.IsU[I]
+th1d hmollerPol_polgem_m5_TimeV_all 'mollerPol.polgem.m5; Strip Time, V/Y strips;' mollerPol.polgem.m5.strip.Tmean[I] 150 0 150 mollerPol.polgem.m5.strip.IsV[I]
+th1d hmollerPol_polgem_m5_iSampMaxU_all 'mollerPol.polgem.m5; Peak time sample, U/X strips;' mollerPol.polgem.m5.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m5.strip.IsU[I]
+th1d hmollerPol_polgem_m5_iSampMaxV_all 'mollerPol.polgem.m5; Peak time sample, V/Y strips;' mollerPol.polgem.m5.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m5.strip.IsV[I]
+th2d hmollerPol_polgem_m5_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m5; U strip ADC sum vs strip;' mollerPol.polgem.m5.strip.istrip[I] mollerPol.polgem.m5.strip.ADCsum[I] 192 -0.5 191.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m5_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m5; V strip ADC sum vs strip;' mollerPol.polgem.m5.strip.istrip[I] mollerPol.polgem.m5.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m5_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m5; U strip ADC max vs strip;' mollerPol.polgem.m5.strip.istrip[I] mollerPol.polgem.m5.strip.ADCmax[I] 192 -0.5 191.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m5_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m5; V strip ADC max vs strip;' mollerPol.polgem.m5.strip.istrip[I] mollerPol.polgem.m5.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m5_hit_xlocal 'Hit local X position (m), Module 5' mollerPol.polgem.m5.hit.hitx[I] 200 -0.040 0.040 #mollerPol.polgem.m5.hit.ontrack[I]
+th1d hmollerPol_polgem_m5_hit_ylocal 'Hit local Y position (m), Module 5' mollerPol.polgem.m5.hit.hity[I] 700 -0.15 0.15 #mollerPol.polgem.m5.hit.ontrack[I]
+th2d hmollerPol_polgem_m5_hit_xylocal 'Hit local X vs Y (m), Module 5' mollerPol.polgem.m5.hit.hitx[I] mollerPol.polgem.m5.hit.hity[I]  100 -0.040 0.040 300 -0.15 0.15 #mollerPol.polgem.m5.hit.ontrack[I]
+th1d hmollerPol_polgem_m5_clustSizeU_all 'mollerPol.polgem.m5; Cluster Size, U/X strips;' mollerPol.polgem.m5.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m5.strip.IsU[I]
+th1d hmollerPol_polgem_m5_clustSizeV_all 'mollerPol.polgem.m5; Cluster Size, V/Y strips;' mollerPol.polgem.m5.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m5.strip.IsV[I]
+
+th1d hmollerPol_polgem_m6_nstripstot_good 'mollerPol.polgem.m6; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m6.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m6.ontrack
+th1d hmollerPol_polgem_m6_nclustU_good 'mollerPol.polgem.m6; num. U clusters;' mollerPol.polgem.m6.clust.nclustu 21 -0.5 20.5 mollerPol.polgem.m6.ontrack
+th1d hmollerPol_polgem_m6_nclustV_good 'mollerPol.polgem.m6; num. V clusters; ' mollerPol.polgem.m6.clust.nclustv 21 -0.5 20.5 mollerPol.polgem.m6.ontrack
+th1d hmollerPol_polgem_m6_nstripstot_all 'mollerPol.polgem.m6; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m6.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m6_nclustU_all 'mollerPol.polgem.m6; num. U clusters;' mollerPol.polgem.m6.clust.nclustu 21 -0.5 20.5
+th1d hmollerPol_polgem_m6_nclustV_all 'mollerPol.polgem.m6; num. V clusters;' mollerPol.polgem.m6.clust.nclustv 21 -0.5 20.5
+th1d hmollerPol_polgem_m6_stripU_all 'mollerPol.polgem.m6; U/X strip index; ' mollerPol.polgem.m6.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m6.strip.IsU[I]
+th1d hmollerPol_polgem_m6_stripV_all 'mollerPol.polgem.m6; V/Y strip index; ' mollerPol.polgem.m6.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m6.strip.IsV[I]
+th1d hmollerPol_polgem_m6_ADCsumU_all 'mollerPol.polgem.m6; Strip ADC sum, U/X strips;' mollerPol.polgem.m6.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m6.strip.IsU[I]
+th1d hmollerPol_polgem_m6_ADCsumV_all 'mollerPol.polgem.m6; Strip ADC sum, V/Y strips;' mollerPol.polgem.m6.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m6.strip.IsV[I]
+th1d hmollerPol_polgem_m6_ADCmaxU_all 'mollerPol.polgem.m6; Strip ADC max, U/X strips;' mollerPol.polgem.m6.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m6.strip.IsU[I]
+th1d hmollerPol_polgem_m6_ADCmaxV_all 'mollerPol.polgem.m6; Strip ADC max, V/Y strips; ' mollerPol.polgem.m6.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m6.strip.IsV[I]
+th1d hmollerPol_polgem_m6_TimeU_all 'mollerPol.polgem.m6; Strip Time, U/X strips;' mollerPol.polgem.m6.strip.Tmean[I] 150 0 150 mollerPol.polgem.m6.strip.IsU[I]
+th1d hmollerPol_polgem_m6_TimeV_all 'mollerPol.polgem.m6; Strip Time, V/Y strips;' mollerPol.polgem.m6.strip.Tmean[I] 150 0 150 mollerPol.polgem.m6.strip.IsV[I]
+th1d hmollerPol_polgem_m6_iSampMaxU_all 'mollerPol.polgem.m6; Peak time sample, U/X strips;' mollerPol.polgem.m6.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m6.strip.IsU[I]
+th1d hmollerPol_polgem_m6_iSampMaxV_all 'mollerPol.polgem.m6; Peak time sample, V/Y strips;' mollerPol.polgem.m6.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m6.strip.IsV[I]
+th2d hmollerPol_polgem_m6_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m6; U strip ADC sum vs strip;' mollerPol.polgem.m6.strip.istrip[I] mollerPol.polgem.m6.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m6_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m6; V strip ADC sum vs strip;' mollerPol.polgem.m6.strip.istrip[I] mollerPol.polgem.m6.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m6_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m6; U strip ADC max vs strip;' mollerPol.polgem.m6.strip.istrip[I] mollerPol.polgem.m6.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m6_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m6; V strip ADC max vs strip;' mollerPol.polgem.m6.strip.istrip[I] mollerPol.polgem.m6.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m6_hit_xlocal 'Hit local X position (m), Module 6' mollerPol.polgem.m6.hit.hitx[I] 300 -0.30 0.30 #mollerPol.polgem.m6.hit.ontrack[I]
+th1d hmollerPol_polgem_m6_hit_ylocal 'Hit local Y position (m), Module 6' mollerPol.polgem.m6.hit.hity[I] 300 -0.3 0.3 #mollerPol.polgem.m6.hit.ontrack[I]
+th2d hmollerPol_polgem_m6_hit_xylocal 'Hit local X vs Y (m), Module 6' mollerPol.polgem.m6.hit.hitx[I] mollerPol.polgem.m6.hit.hity[I]  300 -0.30 0.30 300 -0.3 0.3 #mollerPol.polgem.m6.hit.ontrack[I]
+th1d hmollerPol_polgem_m6_clustSizeU_all 'mollerPol.polgem.m6; Cluster Size, U/X strips;' mollerPol.polgem.m6.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m6.strip.IsU[I]
+th1d hmollerPol_polgem_m6_clustSizeV_all 'mollerPol.polgem.m6; Cluster Size, V/Y strips;' mollerPol.polgem.m6.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m6.strip.IsV[I]
+
+th1d hmollerPol_polgem_m7_nstripstot_good 'mollerPol.polgem.m7; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m7.strip.nstripsfired 101 -0.5 100.5 mollerPol.polgem.m7.ontrack
+th1d hmollerPol_polgem_m7_nclustU_good 'mollerPol.polgem.m7; num. U clusters;' mollerPol.polgem.m7.clust.nclustu 21 -0.5 20.5 mollerPol.polgem.m7.ontrack
+th1d hmollerPol_polgem_m7_nclustV_good 'mollerPol.polgem.m7; num. V clusters; ' mollerPol.polgem.m7.clust.nclustv 21 -0.5 20.5 mollerPol.polgem.m7.ontrack
+th1d hmollerPol_polgem_m7_nstripstot_all 'mollerPol.polgem.m7; Num. fired strips (U/X) + (V/Y);' mollerPol.polgem.m7.strip.nstripsfired 101 -0.5 100.5
+th1d hmollerPol_polgem_m7_nclustU_all 'mollerPol.polgem.m7; num. U clusters;' mollerPol.polgem.m7.clust.nclustu 21 -0.5 20.5
+th1d hmollerPol_polgem_m7_nclustV_all 'mollerPol.polgem.m7; num. V clusters;' mollerPol.polgem.m7.clust.nclustv 21 -0.5 20.5
+th1d hmollerPol_polgem_m7_stripU_all 'mollerPol.polgem.m7; U/X strip index; ' mollerPol.polgem.m7.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m7.strip.IsU[I]
+th1d hmollerPol_polgem_m7_stripV_all 'mollerPol.polgem.m7; V/Y strip index; ' mollerPol.polgem.m7.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m7.strip.IsV[I]
+th1d hmollerPol_polgem_m7_ADCsumU_all 'mollerPol.polgem.m7; Strip ADC sum, U/X strips;' mollerPol.polgem.m7.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m7.strip.IsU[I]
+th1d hmollerPol_polgem_m7_ADCsumV_all 'mollerPol.polgem.m7; Strip ADC sum, V/Y strips;' mollerPol.polgem.m7.strip.ADCsum[I] 1000 0 8000 mollerPol.polgem.m7.strip.IsV[I]
+th1d hmollerPol_polgem_m7_ADCmaxU_all 'mollerPol.polgem.m7; Strip ADC max, U/X strips;' mollerPol.polgem.m7.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m7.strip.IsU[I]
+th1d hmollerPol_polgem_m7_ADCmaxV_all 'mollerPol.polgem.m7; Strip ADC max, V/Y strips; ' mollerPol.polgem.m7.strip.ADCmax[I] 500 0 3000 mollerPol.polgem.m7.strip.IsV[I]
+th1d hmollerPol_polgem_m7_TimeU_all 'mollerPol.polgem.m7; Strip Time, U/X strips;' mollerPol.polgem.m7.strip.Tmean[I] 150 0 150 mollerPol.polgem.m7.strip.IsU[I]
+th1d hmollerPol_polgem_m7_TimeV_all 'mollerPol.polgem.m7; Strip Time, V/Y strips;' mollerPol.polgem.m7.strip.Tmean[I] 150 0 150 mollerPol.polgem.m7.strip.IsV[I]
+th1d hmollerPol_polgem_m7_iSampMaxU_all 'mollerPol.polgem.m7; Peak time sample, U/X strips;' mollerPol.polgem.m7.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m7.strip.IsU[I]
+th1d hmollerPol_polgem_m7_iSampMaxV_all 'mollerPol.polgem.m7; Peak time sample, V/Y strips;' mollerPol.polgem.m7.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m7.strip.IsV[I]
+th2d hmollerPol_polgem_m7_ADCsum_vs_Ustrip_all 'mollerPol.polgem.m7; U strip ADC sum vs strip;' mollerPol.polgem.m7.strip.istrip[I] mollerPol.polgem.m7.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m7_ADCsum_vs_Vstrip_all 'mollerPol.polgem.m7; V strip ADC sum vs strip;' mollerPol.polgem.m7.strip.istrip[I] mollerPol.polgem.m7.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.IsV[I]
+th2d hmollerPol_polgem_m7_ADCmax_vs_Ustrip_all 'mollerPol.polgem.m7; U strip ADC max vs strip;' mollerPol.polgem.m7.strip.istrip[I] mollerPol.polgem.m7.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsU[I]
+th2d hmollerPol_polgem_m7_ADCmax_vs_Vstrip_all 'mollerPol.polgem.m7; V strip ADC max vs strip;' mollerPol.polgem.m7.strip.istrip[I] mollerPol.polgem.m7.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.IsV[I]
+th1d hmollerPol_polgem_m7_hit_xlocal 'Hit local X position (m), Module 7' mollerPol.polgem.m7.hit.hitx[I] 300 -0.30 0.30 #mollerPol.polgem.m7.hit.ontrack[I]
+th1d hmollerPol_polgem_m7_hit_ylocal 'Hit local Y position (m), Module 7' mollerPol.polgem.m7.hit.hity[I] 300 -0.3 0.3 #mollerPol.polgem.m7.hit.ontrack[I]
+th2d hmollerPol_polgem_m7_hit_xylocal 'Hit local X vs Y (m), Module 7' mollerPol.polgem.m7.hit.hitx[I] mollerPol.polgem.m7.hit.hity[I]  300 -0.30 0.30 300 -0.3 0.3 #mollerPol.polgem.m7.hit.ontrack[I]
+th1d hmollerPol_polgem_m7_clustSizeU_all 'mollerPol.polgem.m7; Cluster Size, U/X strips;' mollerPol.polgem.m7.clust.clustu_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m7.strip.IsU[I]
+th1d hmollerPol_polgem_m7_clustSizeV_all 'mollerPol.polgem.m7; Cluster Size, V/Y strips;' mollerPol.polgem.m7.clust.clustv_strips[I] 10 -0.5 9.5 #mollerPol.polgem.m7.strip.IsV[I]
+
+
+# Module 0 strip histograms, strips on tracks:
+th1d hmollerPol_polgem_m0_stripU_good 'mollerPol.polgem.m0 (strips on tracks); U/X strip index;' mollerPol.polgem.m0.strip.istrip[I] 192 -0.5 191.5 mollerPol.polgem.m0.strip.ontrackU[I]
+th1d hmollerPol_polgem_m0_stripV_good 'mollerPol.polgem.m0 (strips on tracks); V/Y strip index;' mollerPol.polgem.m0.strip.istrip[I] 640 -0.5 639.5 mollerPol.polgem.m0.strip.ontrackV[I]
+th1d hmollerPol_polgem_m0_ADCsumU_good 'mollerPol.polgem.m0; Strip ADC sum, U/X strips;' mollerPol.polgem.m0.strip.ADCsum[I] 1000 0 15000 mollerPol.polgem.m0.strip.ontrackU[I]
+th1d hmollerPol_polgem_m0_ADCsumV_good 'mollerPol.polgem.m0; Strip ADC sum, V/Y strips;' mollerPol.polgem.m0.strip.ADCsum[I] 1000 0 15000 mollerPol.polgem.m0.strip.ontrackV[I]
+th1d hmollerPol_polgem_m0_ADCmaxU_good 'mollerPol.polgem.m0; Strip ADC max, U/X strips;' mollerPol.polgem.m0.strip.ADCmax[I] 500 0 4000 mollerPol.polgem.m0.strip.ontrackU[I]
+th1d hmollerPol_polgem_m0_ADCmaxV_good 'mollerPol.polgem.m0; Strip ADC max, V/Y strips;' mollerPol.polgem.m0.strip.ADCmax[I] 500 0 4000 mollerPol.polgem.m0.strip.ontrackV[I]
+th1d hmollerPol_polgem_m0_TimeU_good 'mollerPol.polgem.m0; Strip Time, U/X strips;' mollerPol.polgem.m0.strip.Tmean[I] 150 0 150 mollerPol.polgem.m0.strip.ontrackU[I]
+th1d hmollerPol_polgem_m0_TimeV_good 'mollerPol.polgem.m0; Strip Time, V/Y strips;' mollerPol.polgem.m0.strip.Tmean[I] 150 0 150 mollerPol.polgem.m0.strip.ontrackV[I]
+th1d hmollerPol_polgem_m0_iSampMaxU_good 'mollerPol.polgem.m0; Peak time sample, U/X strips;' mollerPol.polgem.m0.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m0.strip.ontrackU[I]
+th1d hmollerPol_polgem_m0_iSampMaxV_good 'mollerPol.polgem.m0; Peak time sample, V/Y strips;' mollerPol.polgem.m0.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m0.strip.ontrackV[I]
+th2d hmollerPol_polgem_m0_ADCsum_vs_Ustrip_good 'mollerPol.polgem.m0; U strip ADC sum vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCsum[I] 192 -0.5 191.5 250 0 12000 mollerPol.polgem.m0.strip.ontrackU[I]
+th2d hmollerPol_polgem_m0_ADCsum_vs_Vstrip_good 'mollerPol.polgem.m0; V strip ADC sum vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCsum[I] 640 -0.5 639.5 250 0 12000 mollerPol.polgem.m0.strip.ontrackV[I]
+th2d hmollerPol_polgem_m0_ADCmax_vs_Ustrip_good 'mollerPol.polgem.m0; U strip ADC max vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCmax[I] 192 -0.5 191.5 250 0 4000 mollerPol.polgem.m0.strip.ontrackU[I]
+th2d hmollerPol_polgem_m0_ADCmax_vs_Vstrip_good 'mollerPol.polgem.m0; V strip ADC max vs strip;' mollerPol.polgem.m0.strip.istrip[I] mollerPol.polgem.m0.strip.ADCmax[I] 640 -0.5 639.5 250 0 4000 mollerPol.polgem.m0.strip.ontrackV[I]
+
+# Module 0 hit maps
+#th1d hmollerPol_polgem_m0_hit_xlocal 'Hit local X position (m), Module 0' mollerPol.polgem.m0.hit.hitx[I] 250 -0.3072 0.3072 mollerPol.polgem.m0.hit.ontrack[I]
+#th1d hmollerPol_polgem_m0_hit_ylocal 'Hit local Y position (m), Module 0' mollerPol.polgem.m0.hit.hity[I] 250 -0.256 0.256 mollerPol.polgem.m0.hit.ontrack[I]
+#th2d hmollerPol_polgem_m0_hit_xylocal 'Hit local X vs Y (m), Module 0' mollerPol.polgem.m0.hit.hity[I] mollerPol.polgem.m0.hit.hitx[I] 200 -0.256 0.256 200 -0.3072 0.3072 mollerPol.polgem.m0.hit.ontrack[I]
+
+th1d hmollerPol_polgem_m0_ADCmax_good_CM 'mollerPol.polgem.m0; Strip ADC max; ' mollerPol.polgem.m0.strip.ADCmax[I] 500 0 4000 mollerPol.polgem.m0.strip.CM_GOOD[I]
+th1d hmollerPol_polgem_m0_ADCsum_good_CM 'mollerPol.polgem.m0; Strip ADC sum; ' mollerPol.polgem.m0.strip.ADCsum[I] 1000 0 15000 mollerPol.polgem.m0.strip.CM_GOOD[I]
+th1d hmollerPol_polgem_m0_iSampMax_good_CM 'mollerPol.polgem.m0; Strip max time sample;' mollerPol.polgem.m0.strip.isampmax[I] 6 -0.5 5.5 mollerPol.polgem.m0.strip.CM_GOOD[I]
+th1d hmollerPol_polgem_m0_StripTime_good_CM 'mollerPol.polgem.m0; Strip Mean Time (ns);' mollerPol.polgem.m0.strip.Tmean[I] 150 0 150 mollerPol.polgem.m0.strip.CM_GOOD[I]
+th1d hmollerPol_polgem_m0_StripTsigma_good_CM 'mollerPol.polgem.m0; Strip RMS Time (ns);' mollerPol.polgem.m0.strip.Tsigma[I] 150 0 150 mollerPol.polgem.m0.strip.CM_GOOD[I]

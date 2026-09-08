@@ -150,7 +150,7 @@ void GEM_align( const char *configfilename, const char *outputfilename="newGEMal
   double minposchange = 5e-6; // 5 um
   double minanglechange = 5e-5; // 50 urad
 
-  TString prefix = "sbs.uvagem";
+  TString prefix = "mollerPol.polgem";
 
   TChain *C = new TChain("T");
   
@@ -1343,7 +1343,7 @@ void GEM_align( const char *configfilename, const char *outputfilename="newGEMal
   
   if( (offsetsonlyflag == 0 && rotationsonlyflag == 0) ){
 
- // if( false ){
+  if( false ){
     TMinuit *ExtraFit = new TMinuit( 6*nmodules );
     
     ExtraFit->SetFCN( CHI2_FCN );
@@ -1389,6 +1389,7 @@ void GEM_align( const char *configfilename, const char *outputfilename="newGEMal
     
     }
 
+  }
   }
   
   ofstream outfile(outputfilename);
